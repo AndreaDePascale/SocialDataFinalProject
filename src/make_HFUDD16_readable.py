@@ -40,7 +40,8 @@ industry_map = {
     'M': 'Consultancy, R&D and Business Services',
     'N+O': 'Administrative and Public Services',
     'K': 'Financial and Insurance',
-    'L': 'Real Estate'
+    'L': 'Real Estate',
+    'X': 'Activity not stated'  # Covers Unemployed and Outside the labour force
 }
 df['Industry_Group'] = df['Industry_Group'].map(industry_map)
 

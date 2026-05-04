@@ -7,7 +7,8 @@ from tqdm import tqdm # Highly recommend installing this for the loading bar!
 # --- CONFIGURATION ---
 industries = [
     'CA', 'CB', 'CC', 'CD', 'CE', 'CF', 'CG', 'CH', 'CI', 'CJ', 'CK', 'CL', 'CM',
-    'G', 'H', 'P', 'QA', 'QB', 'R', 'MA', 'MB', 'MC', 'N', 'O', 'K', 'L'
+    'G', 'H', 'P', 'QA', 'QB', 'R', 'MA', 'MB', 'MC', 'N', 'O', 'K', 'L',
+    'X'  # Activity not stated (covers Unemployed and Outside the labour force)
 ]
 educations = ['H10', 'H20', 'H30', 'H35', 'H40', 'H50', 'H60', 'H70', 'H80', 'H90']
 ages = ['15-19', '20-24', '25-29', '30-34', '35-39', '40-44', '45-49', '50-54', '55-59', '60-64', '65-69']
@@ -83,6 +84,7 @@ def map_industry(ind):
     if ind in ['N', 'O']: return 'N+O'
     if ind == 'K': return 'K'
     if ind == 'L': return 'L'
+    if ind == 'X': return 'X'  # Activity not stated
     return ind
 
 df_hfudd['ERHVERV_AGG'] = df_hfudd['ERHVERV'].apply(map_industry)
