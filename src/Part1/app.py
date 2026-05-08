@@ -10,7 +10,8 @@ from dash import dcc, html, Input, Output, ctx
 # 1. CONFIGURATION & DATA PREPARATION
 # ==========================================
 DATA_PATH = "src/Part1/data/Part1_merged_dataset.csv"
-GEOJSON_URL = "https://raw.githubusercontent.com/codeforgermany/click_that_hood/main/public/data/denmark-municipalities.geojson"
+# GEOJSON_URL = "https://raw.githubusercontent.com/codeforgermany/click_that_hood/main/public/data/denmark-municipalities.geojson"
+GEOJSON_URL = "src/Part1/data/denmark-municipalities-simplified.geojson"
 
 df = pd.read_csv(DATA_PATH)
 df['Municipality'] = df['Municipality'].str.replace(' Kommune', '', regex=False)
