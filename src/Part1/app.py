@@ -38,8 +38,8 @@ def normalize_name(name):
     if name.startswith("bornholm"): return "bornholm"
     return name
 
-with urllib.request.urlopen(GEOJSON_URL) as response:
-    dk_geojson = json.loads(response.read())
+with open(GEOJSON_URL, 'r', encoding='utf-8') as f:
+    dk_geojson = json.load(f)
 
 csv_munis = df['Municipality'].unique()
 norm_to_csv = {normalize_name(m): m for m in csv_munis}
