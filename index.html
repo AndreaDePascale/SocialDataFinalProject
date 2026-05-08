@@ -4,52 +4,131 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DTU Social Data - Final Project</title>
+    <title>Socioeconomic Status in Denmark</title>
 
     <style>
+        /* Base Styling */
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #eef2f5;
+            color: #2c3e50;
+            margin: 0;
+            padding: 0;
             line-height: 1.6;
-            color: #333;
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 20px;
-            background-color: #f9f9f9;
         }
 
         header {
+            background-color: #2c3e50;
+            color: white;
             text-align: center;
-            padding: 40px 0;
-            margin-bottom: 20px;
-            border-bottom: 2px solid #eaeaea;
+            padding: 60px 20px;
+            margin-bottom: 40px;
         }
 
-        h1 {
-            color: #2c3e50;
-            margin-bottom: 10px;
+        header h1 {
+            margin: 0;
+            font-size: 3em;
         }
 
-        p.subtitle {
-            color: #7f8c8d;
+        header p {
             font-size: 1.2em;
+            opacity: 0.9;
         }
 
-        .content-section {
-            background-color: white;
-            padding: 30px;
-            border-radius: 8px;
+        .main-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 20px 60px 20px;
+        }
+
+        /* Standard Content Sections (Intro, Conclusion) */
+        .standard-section {
+            background-color: #ffffff;
+            border-radius: 12px;
+            padding: 40px;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
-            margin-bottom: 30px;
+            margin-bottom: 50px;
         }
 
-        /* Style for the embedded visualization */
+        .standard-section h2 {
+            margin-top: 0;
+            color: #2c3e50;
+            border-bottom: 2px solid #eaeaea;
+            padding-bottom: 10px;
+        }
+
+        /* The Partitioned Poster Grid */
+        .poster-container {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            grid-template-areas:
+                "stem1 stem2 stem3"
+                "glass glass glass";
+            margin-bottom: 60px;
+            /* Space between the big sections */
+        }
+
+        .partition {
+            background-color: #ffffff;
+            border-radius: 12px;
+            padding: 30px;
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.08);
+            border-top: 5px solid #3498db;
+        }
+
+        .stem-1 {
+            grid-area: stem1;
+        }
+
+        .stem-2 {
+            grid-area: stem2;
+            border-top-color: #e74c3c;
+        }
+
+        .stem-3 {
+            grid-area: stem3;
+            border-top-color: #2ecc71;
+        }
+
+        .partition h3 {
+            margin-top: 0;
+            font-size: 1.4em;
+            color: #333;
+        }
+
+        .glass-section {
+            grid-area: glass;
+            border-top: 5px solid #9b59b6;
+        }
+
         .viz-container {
             width: 100%;
             height: 750px;
-            /* Adjust height if necessary */
             border: none;
             border-radius: 8px;
-            overflow: hidden;
+            margin-top: 15px;
+            background-color: #fcfcfc;
+        }
+
+        /* Section Titles above the grids */
+        .section-title {
+            text-align: center;
+            margin-bottom: 30px;
+            color: #2c3e50;
+            font-size: 2em;
+        }
+
+        /* Responsive Layout for smaller screens */
+        @media (max-width: 900px) {
+            .poster-container {
+                grid-template-columns: 1fr;
+                grid-template-areas:
+                    "stem1"
+                    "stem2"
+                    "stem3"
+                    "glass";
+            }
         }
     </style>
 </head>
@@ -58,24 +137,126 @@
 
     <header>
         <h1>Income & Education in Denmark</h1>
-        <p class="subtitle">An interactive analysis of socioeconomic factors across Danish municipalities.</p>
+        <p>A comprehensive analysis of socioeconomic factors, industry, and wealth across municipalities.</p>
     </header>
 
-    <div class="content-section">
-        <h2>Introduction</h2>
-        <p>Welcome to our final project for the DTU Social Data course. Here, we analyze the relationship between
-            average income, education levels, and employment rates across different municipalities in Denmark using data
-            from Statistics Denmark.</p>
-    </div>
+    <div class="main-content">
 
-    <div class="content-section">
-        <h2>Interactive Map & Ternary Plot</h2>
-        <p><strong>How to use this tool:</strong> Click on any municipality on the map on the left. The map will
-            highlight your selection, and the ternary plot on the right will isolate the exact socioeconomic breakdown
-            (Employed, Unemployed, Enrolled) for that specific municipality.</p>
+        <div class="standard-section">
+            <h2>Introduction</h2>
+            <p>Welcome to our final project for the DTU Social Data course. In this data story, we analyze the intricate
+                relationships between average income, education levels, and employment rates across different
+                municipalities in Denmark using data from Statistics Denmark (HFUDD16 and IFOR35).</p>
+            <p>We aim to uncover how geographical location dictates wealth, which industries act as the biggest
+                financial drivers, and how education pipelines feed into these economic ecosystems.</p>
+        </div>
 
-        <iframe class="viz-container" src="https://socialdatafinalproject-part1.onrender.com"
-            title="Interactive Socioeconomic Map"></iframe>
+        <h2 class="section-title">Part 1: The Geographical Distribution of Income & Demographics</h2>
+        <div class="poster-container">
+
+            <div class="partition stem-1">
+                <h3>The National Trend</h3>
+                <p>From 2008 to 2024, average incomes across Danish municipalities have shown a steady, consistent
+                    upward trajectory. This general increase aligns closely with standard economic inflation over the
+                    16-year period. Rather than localized, explosive economic booms, the data establishes a stable
+                    baseline of wealth growth nationwide.</p>
+            </div>
+
+            <div class="partition stem-2">
+                <h3>Demographic Uniformity</h3>
+                <p>Despite the differences in overall wealth, the fundamental socioeconomic makeup of these
+                    municipalities remains surprisingly uniform. The ratios of employed, unemployed, and enrolled
+                    individuals show only slight variations geographically. This suggests that regional income
+                    disparities are largely driven by the <i>type</i> of industries present, rather than the sheer
+                    volume of the available workforce.</p>
+            </div>
+
+            <div class="partition stem-3">
+                <h3>The Vejen & Billund Anomalies</h3>
+                <p>While national trends are steady, dramatic localized shocks do occur. Between 2022 and 2023, average
+                    incomes spiked massively in both Vejen (from 314k to 446k DKK) and Billund (from 329k to 470k DKK).
+                    Interestingly, their paths diverged: Billund's income corrected back down to 340k DKK the following
+                    year, whereas Vejen maintained its newfound wealth plateau, stabilizing at 435k DKK.</p>
+            </div>
+
+            <div class="partition glass-section">
+                <h3>Explore the Municipalities</h3>
+                <p><strong>Click on any municipality on the map</strong> to filter the ternary plot and examine the
+                    exact breakdown of employed, unemployed, and enrolled citizens.</p>
+
+                <iframe class="viz-container" src="https://YOUR-APP-NAME.onrender.com"
+                    title="Interactive Socioeconomic Map"></iframe>
+            </div>
+        </div>
+
+        <h2 class="section-title">Part 2: Major Industries and Average Income</h2>
+        <div class="poster-container">
+
+            <div class="partition stem-1">
+                <h3>[Insight 1 Title]</h3>
+                <p>[Groupmate 1: Write your first narrative point here. Introduce the relationship between where
+                    companies are located and the surrounding municipality's wealth.]</p>
+            </div>
+
+            <div class="partition stem-2">
+                <h3>[Insight 2 Title]</h3>
+                <p>[Groupmate 1: Highlight a specific trend. For example, do municipalities heavily reliant on a single
+                    manufacturing company differ from those with diverse tech sectors?]</p>
+            </div>
+
+            <div class="partition stem-3">
+                <h3>[Insight 3 Title]</h3>
+                <p>[Groupmate 1: Provide a final concluding thought or an anomaly in the data before handing the
+                    exploration over to the user below.]</p>
+            </div>
+
+            <div class="partition glass-section">
+                <h3>Explore Industry vs. Wealth</h3>
+                <p>Hover over the data points below to see specific company locations, their respective industries, and
+                    how they correlate with local income levels.</p>
+
+                <iframe class="viz-container" src="part2_plot.html" title="Industry and Income Visualization"></iframe>
+            </div>
+        </div>
+
+        <h2 class="section-title">Part 3: The Flow of Education to Industry</h2>
+        <div class="poster-container">
+
+            <div class="partition stem-1">
+                <h3>[Insight 1 Title]</h3>
+                <p>[Groupmate 2: Write your first narrative point here. Explain the overall flow from education levels
+                    into the workforce.]</p>
+            </div>
+
+            <div class="partition stem-2">
+                <h3>[Insight 2 Title]</h3>
+                <p>[Groupmate 2: Highlight a specific pathway. E.g., "Notice how the majority of citizens with Master's
+                    degrees flow into the 'Finance and Tech' sectors..."]</p>
+            </div>
+
+            <div class="partition stem-3">
+                <h3>[Insight 3 Title]</h3>
+                <p>[Groupmate 2: Explain how these specific industry pipelines ultimately translate into the wealth
+                    distributions seen in Part 1 and 2.]</p>
+            </div>
+
+            <div class="partition glass-section">
+                <h3>Explore the Education Pipeline</h3>
+                <p>Trace the flow of demographics. Hover over the nodes and pathways in the Sankey diagram to see the
+                    exact volume of individuals moving from specific education levels into industry sectors.</p>
+
+                <iframe class="viz-container" src="sankey_diagram.html"
+                    title="Education to Industry Sankey Diagram"></iframe>
+            </div>
+        </div>
+
+        <div class="standard-section">
+            <h2>Conclusion</h2>
+            <p>Summarize the overarching narrative of your group's findings here. Tie together the geographical data,
+                the industry correlations, and the educational pathways to deliver a final, cohesive verdict on the
+                state of social data in Denmark.</p>
+        </div>
+
     </div>
 
 </body>
