@@ -10,5 +10,5 @@ wheels/
 .venv
 
 # Data
+data/statsBank/
 data/statsBank
-data/StatsBank
