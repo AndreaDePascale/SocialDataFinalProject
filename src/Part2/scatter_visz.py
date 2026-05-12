@@ -1,3 +1,4 @@
+#%% Import libraries
 from pathlib import Path
 import numpy as np
 import pandas as pd
@@ -6,7 +7,7 @@ import plotly.graph_objects as go
 import requests
 from scipy import stats as sp_stats
 
-
+#%% Load and prepare data
 PANEL_PATH = Path("data/kommune_year_panel.csv")
 
 panel = pd.read_csv(PANEL_PATH, dtype={"KommuneCode": str})
@@ -16,9 +17,7 @@ geojson = requests.get(
     "https://api.dataforsyningen.dk/kommuner?format=geojson", timeout=30
 ).json()
 
-# ----------------------------------------------------------------------------
-# Compute one-row-per-kommune summary
-# ----------------------------------------------------------------------------
+#%% Compute one-row-per-kommune summary
 def first_last(df: pd.DataFrame, col: str) -> pd.DataFrame:
     """Return first-year and last-year values per kommune for a given column."""
     first = df.sort_values("year").groupby("KommuneCode").first()[col].rename(f"{col}_start")
@@ -44,9 +43,7 @@ agg["income_pct"] = 100 * (agg["average_income_end"] - agg["average_income_start
 
 
 
-# ----------------------------------------------------------------------------
-# CHART 5 — Scatter: net unit change vs population change
-# ----------------------------------------------------------------------------
+#%% Scatter: net unit change vs population change
 
 scatter_df = agg.dropna(subset=["active_pct", "pop_pct", "population_start"]).copy()
 
@@ -56,6 +53,7 @@ slope, intercept = np.polyfit(scatter_df["active_pct"], scatter_df["pop_pct"], 1
 x_line = np.linspace(scatter_df["active_pct"].min(), scatter_df["active_pct"].max(), 100)
 y_line = slope * x_line + intercept
 
+# Construct the scatter plot with Plotly
 fig5 = px.scatter(
     scatter_df,
     x="active_pct", y="pop_pct",
