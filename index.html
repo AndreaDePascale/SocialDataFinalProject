@@ -131,6 +131,52 @@
                     "glass";
             }
         }
+
+        .poster-container.part2 {
+            grid-template-areas:
+                "stem1 stem2 stem3"
+                "glass glass glass"
+                "limits limits limits";
+        }
+        
+        /* Shorter iframe height, only in Part 2 */
+        .poster-container.part2 .viz-container {
+            height: 650px;
+        }
+        
+        /* Limitations partition: full width, muted, smaller font */
+        .poster-container.part2 .stem-limitations {
+            grid-area: limits;
+            border-top-color: #95a5a6;
+            padding: 20px 30px;
+            background-color: #fafbfc;
+        }
+        
+        .poster-container.part2 .stem-limitations h3 {
+            font-size: 1.1em;
+            color: #555;
+            font-weight: 500;
+            margin-bottom: 8px;
+        }
+        
+        .poster-container.part2 .stem-limitations p {
+            font-size: 0.9em;
+            color: #666;
+            line-height: 1.5;
+            margin: 0;
+        }
+        
+        /* Mobile fallback for Part 2 only */
+        @media (max-width: 900px) {
+            .poster-container.part2 {
+                grid-template-areas:
+                    "stem1"
+                    "stem2"
+                    "stem3"
+                    "glass"
+                    "limits";
+            }
+        }
     </style>
 </head>
 
@@ -210,7 +256,7 @@
         </div>
 
         <h2 class="section-title">Part 2: Production Units and the Demographic Map</h2>
-        <div class="poster-container">
+        <div class="poster-container part2">
 
             <div class="partition stem-1">
                 <h3>Where Units Open, People Follow, A Little</h3>
