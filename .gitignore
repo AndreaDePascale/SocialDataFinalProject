@@ -10,3 +10,4 @@ wheels/
 .venv
 data/statsBank/
 data/statsBank
+src/Part2/*.ipynb

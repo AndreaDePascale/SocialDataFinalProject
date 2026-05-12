@@ -65,13 +65,13 @@
 <body>
   <div class="tabs" role="tablist">
     <button class="tab-btn active" data-target="tab-scatter" role="tab" aria-selected="true">Units vs population (scatter)</button>
-    <button class="tab-btn" data-target="tab-income" role="tab" aria-selected="false">Income change (map)</button>
     <button class="tab-btn" data-target="tab-population" role="tab" aria-selected="false">Population change (map)</button>
+    <button class="tab-btn" data-target="tab-income" role="tab" aria-selected="false">Income change (map)</button>
   </div>
   <div class="panel-wrap">
     <iframe id="tab-scatter"    class="panel active" src="scatter_units_vs_population.html" title="Units vs population scatter" loading="lazy"></iframe>
-    <iframe id="tab-income"     class="panel"        src="map_income_plotly.html"           title="Average income change map" loading="lazy"></iframe>
     <iframe id="tab-population" class="panel"        src="map_population_folium.html"       title="Population change map"     loading="lazy"></iframe>
+    <iframe id="tab-income"     class="panel"        src="map_income_plotly.html"           title="Average income change map" loading="lazy"></iframe>
   </div>
 
 <script>
