@@ -1,25 +1,6 @@
-"""
-Two pairs of maps (folium + plotly), one for population change and one for
-average income change 2008→2024. Each map shows:
-
-  - Choropleth: % change in pop (Map 1) or income (Map 2), 2008→2024
-  - One bubble per municipality at its polygon centroid, sized by |net change %|,
-    colored green/red by sign (grey if zero), labeled with the signed value.
-
-Hover on kommune (polygon): Name, % change in pop/income, Net total, Net change (%)
-Bubble: no hover; value drawn inside.
-
-Outputs in ./outputs/:
-  - map_population_folium.html
-  - map_population_plotly.html
-  - map_income_folium.html
-  - map_income_plotly.html
-"""
+#%% Import libraries
 from __future__ import annotations
-
-import json
 from pathlib import Path
-
 import branca.colormap as cm
 import folium
 import numpy as np
@@ -29,9 +10,8 @@ import plotly.graph_objects as go
 import requests
 from shapely.geometry import shape
 
-# ----------------------------------------------------------------------------
-# Config
-# ----------------------------------------------------------------------------
+#%% Config
+
 PANEL_PATH = Path("data/kommune_year_panel.csv")
 OUT_DIR = Path("data")
 OUT_DIR.mkdir(exist_ok=True)
@@ -43,10 +23,8 @@ YEAR_START, YEAR_END = 2008, 2024
 BUBBLE_MIN_PX = 8
 BUBBLE_MAX_PX = 36
 
-# ----------------------------------------------------------------------------
-# 1. Kommune-level metrics
-# ----------------------------------------------------------------------------
-print("Loading panel...")
+#%% 1. Kommune-level metrics
+
 panel = pd.read_csv(PANEL_PATH, dtype={"KommuneCode": str})
 panel["KommuneCode"] = panel["KommuneCode"].str.zfill(4)
 
@@ -76,12 +54,9 @@ metrics["net_pct"] = np.where(
     np.nan,
 )
 metrics = metrics.reset_index()
-print(f"  {len(metrics)} kommuner with metrics")
 
-# ----------------------------------------------------------------------------
-# 2. GeoJSON + centroids
-# ----------------------------------------------------------------------------
-print("Fetching GeoJSON...")
+#%% 2. GeoJSON + centroids
+
 geojson = requests.get(
     "https://api.dataforsyningen.dk/kommuner?format=geojson", timeout=30
 ).json()
@@ -105,9 +80,8 @@ for feat in geojson["features"]:
     feat["properties"]["net_pct"] = m.get("net_pct")
     feat["properties"]["kommune_name"] = m.get("KommuneName") or feat["properties"].get("navn")
 
-# ----------------------------------------------------------------------------
-# 3. Bubble sizing helper
-# ----------------------------------------------------------------------------
+#%% 3. Bubble sizing helper
+
 # Use the full range of |net_pct| across kommuner to scale radii linearly
 abs_pct = metrics["net_pct"].abs().dropna()
 PCT_MAX = float(abs_pct.max()) if len(abs_pct) > 0 else 1.0
@@ -128,9 +102,8 @@ def bubble_label(net_pct: float) -> str:
         return "n/a"
     return f"{net_pct:+.1f}%"
 
-# ----------------------------------------------------------------------------
-# 4. Folium map builder
-# ----------------------------------------------------------------------------
+#%% 4. Folium map builder
+
 def build_folium_map(value_col: str, value_label: str, output_name: str):
     m_data = metrics.dropna(subset=[value_col])
     vals = m_data[value_col]
@@ -223,9 +196,8 @@ def build_folium_map(value_col: str, value_label: str, output_name: str):
     print(f"  wrote {output_name}")
 
 
-# ----------------------------------------------------------------------------
-# 5. Plotly map builder
-# ----------------------------------------------------------------------------
+#%% 5. Plotly map builder
+
 def build_plotly_map(value_col: str, value_label: str, output_name: str):
     m_data = metrics.dropna(subset=[value_col]).copy()
     vals = m_data[value_col]
@@ -309,15 +281,10 @@ def build_plotly_map(value_col: str, value_label: str, output_name: str):
     print(f"  wrote {output_name}")
 
 
-# ----------------------------------------------------------------------------
-# 6. Build all four
-# ----------------------------------------------------------------------------
-print("\nMap 1: Population change")
+#%% 6. Build all four mappings
+
 build_folium_map("pop_pct", "Population change 2008–2024 (%)", "map_population_folium.html")
 build_plotly_map("pop_pct", "Population change 2008–2024 (%)", "map_population_plotly.html")
 
-print("\nMap 2: Average income change")
 build_folium_map("income_pct", "Avg income change 2008–2024 (%)", "map_income_folium.html")
 build_plotly_map("income_pct", "Avg income change 2008–2024 (%)", "map_income_plotly.html")
-
-print(f"\nAll maps saved to {OUT_DIR.resolve()}")
