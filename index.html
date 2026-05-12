@@ -213,7 +213,6 @@
         <div class="poster-container">
 
             <div class="partition stem-1">
-                <h3>[Insight 1 Title]</h3>
                 <h3>Where Units Open, People Follow, A Little</h3>
                 <p>Part 1 found that Danish municipalities look demographically similar on the surface. We expected the
                 physical economy, the opening and closing of production units, to differentiate them more. Across 98
@@ -246,11 +245,23 @@
             </div>
 
             <div class="partition glass-section">
-                <h3>Explore Industry vs. Wealth</h3>
-                <p>Hover over the data points below to see specific company locations, their respective industries, and
-                    how they correlate with local income levels.</p>
-
-                <iframe class="viz-container" src="part2_plot.html" title="Industry and Income Visualization"></iframe>
+                <h3>Explore Production Unit Churn vs. Demographics</h3>
+                <p>Three views of the same story. Tab 1 shows the moderate correlation between unit growth and population
+                    growth across 98 municipalities. Tab 2 maps the percentage change in average income from 2008 to 2024
+                    and shows that unit churn (the bubbles) does not align with the income choropleth. Tab 3 does the same
+                    for population, where peripheral and island kommuner stand out as the clearest losers.</p>
+                <iframe class="viz-container" src="src/Part2/part2_plot.html" title="Production unit change vs demographics"></iframe>
+            </div>
+            <div class="partition stem-limitations">
+                <h3>Limitations and Further Work</h3>
+                <p>This analysis treats production units as interchangeable counts. In reality a 500 employee pharmaceutical
+                    plant and a three person consultancy have very different local impact. The CVR employee field is too
+                    sparsely populated in our data to weight units by size, and very small kommuner produce volatile
+                    percentage changes (Vallensbæk grew from 1 to 7 units, a 600% increase that reflects sample size more
+                    than economic transformation). A natural extension is to classify units by industry sector (NACE
+                    branchekoder) and ask whether <em>what</em> opens matters more than <em>how many</em>. Given Part 3's
+                    finding that knowledge intensive sectors track education, this is likely where the strongest
+                    explanatory signal lies.</p>
             </div>
         </div>
 
